@@ -166,13 +166,16 @@
         if (typeof jQuery !== 'undefined' && typeof jQuery.getScript === 'function') {
             var onNavigateMessage = function(url) {
                 var anchor = document.createElement('a');
+                anchor.style.display = 'none';
                 anchor.setAttribute('href', url);
+                document.getElementById('main-section').appendChild(anchor);
                 var evt = new MouseEvent('click', {
                     view: window,
                     bubbles: true,
                     cancelable: true,
                 });
                 anchor.dispatchEvent(evt);
+                anchor.parentNode.removeChild(anchor);
             }
 
             // add randomness to id to support for multiple graphic instances in one story
@@ -186,7 +189,7 @@
                         {}
                     );
 
-                    if ({{ slug }} === 'county-results') {
+                    if ('{{ slug }}' === 'county-results') {
                         var getParameterByName = function(name) {
                             name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
                             var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -262,13 +265,16 @@
     <script>
         var onNavigateMessage = function(url) {
             var anchor = document.createElement('a');
+            anchor.style.display = 'none';
             anchor.setAttribute('href', url);
+            document.getElementById('main-section').appendChild(anchor);
             var evt = new MouseEvent('click', {
                 view: window,
                 bubbles: true,
                 cancelable: true,
             });
             anchor.dispatchEvent(evt);
+            anchor.parentNode.removeChild(anchor);
         }
 
         if ('{{ slug }}' === 'state-results' || '{{slug}}' === 'state-down-ballot') {
